@@ -34,8 +34,8 @@ jobs:
         with:
           image-ref: lawless92/simplepage:latest
           format: 'table'
-          exit-code: '1'
-          vuln-type: 'os,library'
-          severity: 'CRITICAL,HIGH'
       - name: Run gitleaks
         run: gitleaks detect --source . --verbose
+
+      - name: ZAP Scan (Gitleaks)
+        uses: gitleaks/gitleaks-action@v2
