@@ -29,13 +29,17 @@ jobs:
           push: true
           tags: lawless92/simplepage:latest
 
-      - name: scan image with trivy
+  scan:
+    needs: build
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v2
+      - name: Scan image with Trivy
         uses: aquasecurity/trivy-action@master
         with:
           image-ref: lawless92/simplepage:latest
           format: 'table'
-      - name: Run gitleaks
-        run: gitleaks detect --source . --verbose
-
-      - name: ZAP Scan (Gitleaks)
+      - name: Secret Scanning (Gitleaks)
         uses: gitleaks/gitleaks-action@v2
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
