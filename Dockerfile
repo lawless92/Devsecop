@@ -1,5 +1,8 @@
 FROM python:3.12-slim
 
+# Actualizar paquetes del sistema y limpiar caché para optimizar el tamaño de la imagen
+RUN apt-get update && apt-get upgrade -y && rm -rf /var/lib/apt/lists/*
+
 # Set the working directory in the container
 WORKDIR /app
 
